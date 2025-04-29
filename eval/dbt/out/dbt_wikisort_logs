@@ -1,0 +1,12 @@
+Exited from binary prematurely due to issue locating block 1ba0c
+Next Block Addr: 1ba0c
+Start Location in Cache: 0
+Terminal Inst: 0
+Type: Indirect Branch
+Number of Basic Blocks: 0
+Number of Instructions Replaced: 32f
+Number of Instructions Not Replaced: 255
+Code Cached: 223a
+Original Size: 2898
+Percentage reduction: 15.6851
+EXIT PROGRAM

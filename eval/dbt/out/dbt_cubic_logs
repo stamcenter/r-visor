@@ -1,0 +1,12 @@
+Exited from binary prematurely due to issue locating block 1c900
+Next Block Addr: 1c900
+Start Location in Cache: 0
+Terminal Inst: 0
+Type: Indirect Branch
+Number of Basic Blocks: 0
+Number of Instructions Replaced: 5ee
+Number of Instructions Not Replaced: 2e8
+Code Cached: 396c
+Original Size: 4548
+Percentage reduction: 17.1177
+EXIT PROGRAM

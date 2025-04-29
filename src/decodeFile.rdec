@@ -1,0 +1,340 @@
+InstType R { opcode [0:6], rd [7:11], funct3 [12:14], rs1 [15:19],
+    rs2 [20:24], funct7 [25:31]
+}
+
+InstType R4 { opcode [0:6], rd [7:11], funct3 [12:14], rs1 [15:19],
+    rs2 [20:24], funct2 [25:26], rs3 [27:31]
+}
+
+InstType RAMO { opcode [0:6], rd [7:11], funct3 [12:14], rs1 [15:19],
+    rs2 [20:24], rl [25:25], aq [26:26], funct5 [27:31]
+}
+
+InstType I { opcode [0:6], rd [7:11], funct3 [12:14], rs1 [15:19],
+    imm(0:11) [20:31] -s
+}
+
+InstType S { opcode [0:6], imm(0:4) [7:11] -s, funct3 [12:14],
+    rs1 [15:19], rs2 [20:24], imm(5:11) [25:31]
+}
+
+InstType U { opcode [0:6], rd [7:11], imm [12:31] }
+
+InstType B { opcode [0:6], imm(11) [7] -s, imm(1:4) [8:11],
+    funct3 [12:14], rs1 [15:19], rs2 [20:24], imm(5:10) [25:30],
+    imm(12) [31:31]
+}
+
+InstType J { opcode [0:6], rd [7:11], imm(12:19) [12:19] -s,
+    imm(11) [20], imm(1:10) [21:30], imm(20) [31:31]
+}
+
+
+{ Compressed  }
+
+InstType CR { op [0:1], rs2 [2:6], rd_rs1 [7:11], funct4 [12:15] }
+
+InstType CRI { op [0:1], rs2p [2:4], funct2 [5:6], rd_rs1p [7:9],
+    funct6 [10:15]
+}
+
+InstType CI { op [0:1], imm(0:4) [2:6], rd_rs1 [7:11],
+    imm(5) [12:12], funct3 [13:15]
+}
+
+InstType CIS { op [0:1], imm(6:7) [2:3], imm(2:4) [4:6],
+    rd_rs1 [7:11], imm(5) [12:12], funct3 [13:15]
+}
+
+InstType CISD { op [0:1], imm(6:8) [2:4], imm(3:4) [5:6],
+    rd_rs1 [7:11], imm(5) [12:12], funct3 [13:15]
+}
+
+InstType CI16 { op [0:1], imm(5) [2:2], imm(7:8) [3:4],
+    imm(6) [5:5], imm(4) [6:6], rd_rs1 [7:11], imm(9) [12:12],
+    funct3 [13:15]
+}
+
+InstType CSS { op [0:1], rs2 [2:6], imm(6:7) [7:8],
+    imm(2:5) [9:12], funct3 [13:15]
+}
+
+InstType CSSD { op [0:1], rs2 [2:6], imm(6:8) [7:9],
+    imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CIW { op [0:1], rdp [2:4], imm(3) [5:5], imm(2) [6:6],
+    imm(6:9) [7:10], imm(4:5) [11:12], funct3 [13:15]
+}
+
+InstType CL { op [0:1], rdp [2:4], imm(2) [5:5], imm(6) [6:6],
+    rs1p [7:9], imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CLD { op [0:1], rdp [2:4], imm(6:7) [5:6], rs1p [7:9],
+    imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CS { op [0:1], rs2p [2:4], imm(2) [5:5], imm(6) [6:6],
+    rs1p [7:9], imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CSD { op [0:1], rs2p [2:4], imm(6:7) [5:6], rs1p [7:9],
+    imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CB { op [0:1], imm(5) [2:2] -s, imm(1:2) [3:4],
+    imm(6:7) [5:6], rs1 [7:9], imm(3:4) [10:11], imm(8) [12:12],
+    funct3 [13:15]
+}
+
+InstType CBI { 
+    op [0:1], 
+    imm(0:4) [2:6],
+    rd_rs1p [7:9],
+    funct2 [10:11],
+    imm(5) [12:12],
+    funct3 [13:15]
+}
+
+InstType CJ { op [0:1], imm(5) [2:2] -s, imm(1:3) [3:5], imm(7) [6:6],
+    imm(6) [7:7], imm(10) [8:8], imm(8:9) [9:10], imm(4) [11:11],
+    imm(11) [12:12], funct3 [13:15]
+}
+
+
+
+{ RV32I Base }
+
+Instruction LUI {type U, opcode 0b0110111}
+Instruction AUIPC {type U, opcode 0b0010111}
+
+Instruction JAL {type J, opcode 0b1101111}
+Instruction JALR {type I, opcode 0b1100111, funct3 0b000}
+
+Instruction BEQ {type B, opcode 0b1100011, funct3 0b000}
+Instruction BNE {type B, opcode 0b1100011, funct3 0b001}
+Instruction BLT {type B, opcode 0b1100011, funct3 0b100}
+Instruction BGE {type B, opcode 0b1100011, funct3 0b101}
+Instruction BLTU {type B, opcode 0b1100011, funct3 0b110}
+Instruction BGEU {type B, opcode 0b1100011, funct3 0b111}
+
+Instruction LB {type I, opcode 0b0000011, funct3 0b000}
+Instruction LH {type I, opcode 0b0000011, funct3 0b001}
+Instruction LW {type I, opcode 0b0000011, funct3 0b010}
+Instruction LBU {type I, opcode 0b0000011, funct3 0b100}
+Instruction LHU {type I, opcode 0b0000011, funct3 0b101}
+
+Instruction SB {type S, opcode 0b0100011, funct3 0b000}
+Instruction SH {type S, opcode 0b0100011, funct3 0b001}
+Instruction SW {type S, opcode 0b0100011, funct3 0b010}
+
+Instruction ADDI {type I, opcode 0b0010011, funct3 0b000}
+Instruction SLTI {type I, opcode 0b0010011, funct3 0b010}
+Instruction SLTIU {type I, opcode 0b0010011, funct3 0b011}
+Instruction XORI {type I, opcode 0b0010011, funct3 0b100}
+Instruction ORI {type I, opcode 0b0010011, funct3 0b110}
+Instruction ANDI {type I, opcode 0b0010011, funct3 0b111}
+
+Instruction ADD {type R, opcode 0b0110011, funct3 0b000, funct7 0b0000000}
+Instruction SUB {type R, opcode 0b0110011, funct3 0b000, funct7 0b0100000}
+Instruction SLL {type R, opcode 0b0110011, funct3 0b001, funct7 0b0000000}
+Instruction SLT {type R, opcode 0b0110011, funct3 0b010, funct7 0b0000000}
+Instruction SLTU {type R, opcode 0b0110011, funct3 0b011, funct7 0b0000000}
+Instruction XOR {type R, opcode 0b0110011, funct3 0b100, funct7 0b0000000}
+Instruction SRL {type R, opcode 0b0110011, funct3 0b101,  funct7 0b0000000}
+Instruction SRA {type R, opcode 0b0110011, funct3 0b101,  funct7 0b0100000}
+Instruction OR {type R, opcode 0b0110011, funct3 0b110, funct7 0b0000000}
+Instruction AND {type R, opcode 0b0110011, funct3 0b111, funct7 0b0000000}
+
+Instruction FENCE {type I, opcode 0b0001111, funct3 0b000}
+Instruction ECALL {type I, opcode 0b1110011, funct3 0b000,  imm 0b00000000}
+Instruction EBREAK {type I, opcode 0b1110011, funct3 0b000,  imm 0b00000001}
+
+{ RV64I Base }
+
+Instruction LWU {type I, opcode 0b0000011, funct3 0b110}
+Instruction LD {type I, opcode 0b0000011, funct3 0b111}
+
+Instruction SD {type S, opcode 0b0100011, funct3 0b011}
+
+Instruction SLLI {type R, opcode 0b0010011, funct3 0b001, funct7 0b0000000}
+Instruction SRLI {type R, opcode 0b0010011, funct3 0b101, funct7 0b0000000}
+Instruction SRAI {type R, opcode 0b0010011, funct3 0b101, funct7 0b0100000}
+
+Instruction ADDIW {type I, opcode 0b0011011, funct3 0b000}
+
+Instruction SLLIW {type R, opcode 0b0011011, funct3 0b001, funct7 0b0000000}
+Instruction SRLIW {type R, opcode 0b0011011, funct3 0b101, funct7 0b0000000}
+Instruction SRAIW {type R, opcode 0b0011011, funct3 0b101, funct7 0b0100000}
+Instruction ADDW {type R, opcode 0b0111011, funct3 0b000, funct7 0b0000000}
+Instruction SUBW {type R, opcode 0b0111011, funct3 0b000, funct7 0b0100000}
+Instruction SLLW {type R, opcode 0b0111011, funct3 0b001, funct7 0b0000000}
+Instruction SRLW {type R, opcode 0b0111011, funct3 0b101, funct7 0b0000000}
+Instruction SRAW {type R, opcode 0b0111011, funct3 0b101, funct7 0b0100000}
+
+{ RV64M Standard }
+
+Instruction MUL {type R, opcode 0b0110011, funct3 0b000, funct7 0b0000001}
+Instruction MULH {type R, opcode 0b0110011, funct3 0b001, funct7 0b0000001}
+Instruction MULHSU {type R, opcode 0b0110011, funct3 0b010, funct7 0b0000001}
+Instruction MULHU {type R, opcode 0b0110011, funct3 0b011, funct7 0b0000001}
+Instruction DIV {type R, opcode 0b0110011, funct3 0b100, funct7 0b0000001}
+Instruction DIVU {type R, opcode 0b0110011, funct3 0b101, funct7 0b0000001}
+Instruction REM {type R, opcode 0b0110011, funct3 0b110, funct7 0b0000001}
+Instruction REMU {type R, opcode 0b0110011, funct3 0b111, funct7 0b0000001}
+
+{ RV64M Standard }
+
+Instruction MULW {type R, opcode 0b0111011, funct3 0b000, funct7 0b0000001}
+Instruction DIVW {type R, opcode 0b0111011, funct3 0b100, funct7 0b0000001}
+Instruction DIVUW {type R, opcode 0b0111011, funct3 0b101, funct7 0b0000001}
+Instruction REMW {type R, opcode 0b0111011, funct3 0b110, funct7 0b0000001}
+Instruction REMUW {type R, opcode 0b0111011, funct3 0b111, funct7 0b0000001}
+
+{ RV32A Standard }
+
+Instruction LR.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b00010}
+Instruction SC.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b00011}
+Instruction AMOSWAP.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b00001}
+Instruction AMOADD.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b00000}
+Instruction AMOXOR.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b00100}
+Instruction AMOAND.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b01100}
+Instruction AMOOR.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b01000}
+Instruction AMOMIN.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b10000}
+Instruction AMOMAX.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b10100}
+Instruction AMOMINU.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b11000}
+Instruction AMOMAXU.W {type RAMO, opcode 0b0101111, funct3 0b010, funct5 0b11100}
+
+{ RV64A Standard }
+
+Instruction LR.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b00010}
+Instruction SC.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b00011}
+Instruction AMOSWAP.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b00001}
+Instruction AMOADD.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b00000}
+Instruction AMOXOR.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b00100}
+Instruction AMOAND.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b01100}
+Instruction AMOOR.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b01000}
+Instruction AMOMIN.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b10000}
+Instruction AMOMAX.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b10100}
+Instruction AMOMINU.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b11000}
+Instruction AMOMAXU.D {type RAMO, opcode 0b0101111, funct3 0b011, funct5 0b11100}
+
+{ RV32F Standard }
+
+Instruction FLW {type I, opcode 0b0000111, funct3 0b010}
+Instruction FSW {type S, opcode 0b0100111, funct3 0b010}
+
+Instruction FMADD.S {type R4, opcode 0b1000011, funct2 0b00}
+Instruction FMSUB.S {type R4, opcode 0b1000111, funct2 0b00}
+Instruction FNMSUB.S {type R4, opcode 0b1001011, funct2 0b00}
+Instruction FNMADD.S {type R4, opcode 0b1001111, funct2 0b00}
+
+Instruction FADD.S {type R, opcode 0b1010011, funct7 0b0000000}
+Instruction FSUB.S {type R, opcode 0b1010011, funct7 0b0000100}
+Instruction FMUL.S {type R, opcode 0b1010011, funct7 0b0001000}
+Instruction FDIV.S {type R, opcode 0b1010011, funct7 0b0001100}
+Instruction FSQRT.S {type R, opcode 0b1010011, funct7 0b0101100, rs2 0b00000}
+Instruction FSGNJ.S {type R, opcode 0b1010011, funct7 0b0010000, funct3 0b000}
+Instruction FSGNJN.S {type R, opcode 0b1010011, funct7 0b0010000, funct3 0b001}
+Instruction FSGNJX.S {type R, opcode 0b1010011, funct7 0b0010000, funct3 0b010}
+Instruction FMIN.S {type R, opcode 0b1010011, funct7 0b0010100, funct3 0b000}
+Instruction FMAX.S {type R, opcode 0b1010011, funct7 0b0010100, funct3 0b001}
+Instruction FCVT.W.S {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00000}
+Instruction FCVT.WU.S {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00001}
+Instruction FMV.X.S {type R, opcode 0b1010011, funct7 0b1110000, rs2 0b00000, funct3 0b000}
+Instruction FEQ.S {type R, opcode 0b1010011, funct7 0b1010000, funct3 0b010}
+Instruction FLT.S {type R, opcode 0b1010011, funct7 0b1010000, funct3 0b001}
+Instruction FLE.S {type R, opcode 0b1010011, funct7 0b1010000, funct3 0b000}
+Instruction FCLASS.S {type R, opcode 0b1010011, funct7 0b1110000, funct3 0b001, rs2 0b00000}
+Instruction FCVT.S.W {type R, opcode 0b1010011, funct7 0b1101000, rs2 0b00000}
+Instruction FCVT.S.WU {type R, opcode 0b1010011, funct7 0b1101000, rs2 0b00001}
+Instruction FMV.W.X {type R, opcode 0b1010011, funct7 0b1111000, funct3 0b000, rs2 0b00000}
+
+{ RV64F Standard }
+
+Instruction FCVT.L.S {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00010}
+Instruction FCVT.LU.S {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00011}
+Instruction FCVT.S.L {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00010}
+Instruction FCVT.S.LU {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00010}
+
+{ RV32D Standard }
+
+Instruction FLD {type I, opcode 0b0000111, funct3 0b011}
+Instruction FSD {type S, opcode 0b0100111, funct3 0b011}
+
+Instruction FMADD.D {type R4, opcode 0b1000011, funct2 0b01}
+Instruction FMSUB.D {type R4, opcode 0b1000111, funct2 0b01}
+Instruction FNMSUB.D {type R4, opcode 0b1001011, funct2 0b01}
+Instruction FNMADD.D {type R4, opcode 0b1001111, funct2 0b01}
+
+Instruction FADD.D {type R, opcode 0b1010011, funct7 0b0000001}
+Instruction FSUB.D {type R, opcode 0b1010011, funct7 0b0000101}
+Instruction FMUL.D {type R, opcode 0b1010011, funct7 0b0001001}
+Instruction FDIV.D {type R, opcode 0b1010011, funct7 0b0001101}
+Instruction FSQRT.D {type R, opcode 0b1010011, funct7 0b0101101, rs2 0b00000}
+Instruction FSGNJ.D {type R, opcode 0b1010011, funct7 0b0010001, funct3 0b000}
+Instruction FSGNJN.D {type R, opcode 0b1010011, funct7 0b0010001, funct3 0b001}
+Instruction FSGNJX.D {type R, opcode 0b1010011, funct7 0b0010001, funct3 0b010}
+Instruction FMIN.D {type R, opcode 0b1010011, funct7 0b0010101, funct3 0b000}
+Instruction FMAX.D {type R, opcode 0b1010011, funct7 0b0010101, funct3 0b001}
+Instruction FCVT.S.D {type R, opcode 0b1010011, funct7 0b0100000, rs2 0b00001}
+Instruction FCVT.D.S {type R, opcode 0b1010011, funct7 0b0100001, rs2 0b00000}
+Instruction FEQ.D {type R, opcode 0b1010011, funct7 0b1010001, funct3 0b010}
+Instruction FLT.D {type R, opcode 0b1010011, funct7 0b1010001, funct3 0b001}
+Instruction FLE.D {type R, opcode 0b1010011, funct7 0b1010001, funct3 0b000}
+Instruction FCLASS.D {type R, opcode 0b1010011, funct7 0b1110001, funct3 0b001, rs2 0b00000}
+Instruction FCVT.W.D {type R, opcode 0b1010011, funct7 0b1100001, rs2 0b00000}
+Instruction FCVT.WU.D {type R, opcode 0b1010011, funct7 0b1100001, rs2 0b00001}
+Instruction FCVT.D.W {type R, opcode 0b1010011, funct7 0b1101001, rs2 0b00000}
+Instruction FCVT.D.WU {type R, opcode 0b1010011, funct7 0b1101001, rs2 0b00001}
+
+{ RV64D Standard }
+
+Instruction FCVT.L.D {type R, opcode 0b1010011, funct7 0b1100001, rs2 0b00010}
+Instruction FCVT.LU.D {type R, opcode 0b1010011, funct7 0b1100001, rs2 0b00011}
+Instruction FMV.X.D {type R, opcode 0b1010011, funct7 0b1110001, rs2 0b00000, funct3 0b000}
+Instruction FCVT.D.L {type R, opcode 0b1010011, funct7 0b1101001, rs2 0b00010}
+Instruction FCVT.D.LU {type R, opcode 0b1010011, funct7 0b1101001, rs2 0b00011}
+Instruction FMV.D.X {type R, opcode 0b1010011, funct7 0b1111001, funct3 0b000, rs2 0b00000}
+
+
+{ Rv64 Compressed }
+
+Instruction C.ADDI4SPN {type CIW, opfunct3 0b00000, op 0b00, funct3 0b000}
+Instruction C.FLD {type CLD, opfunct3 0b00001, op 0b00, funct3 0b001}
+Instruction C.LW {type CL, opfunct3 0b00010, op 0b00, funct3 0b010}
+Instruction C.LD {type CL, opfunct3 0b00011, op 0b00, funct3 0b011}
+Instruction C.FSD {type CSD, opfunct3 0b00101, op 0b00, funct3 0b101}
+Instruction C.SW {type CS, opfunct3 0b00110, op 0b00, funct3 0b110}
+Instruction C.SD {type CSD, opfunct3 0b00111, op 0b00, funct3 0b111}
+Instruction C.NOP {type CI, opfunct3 0b01000, imm 0, rd_rs1 0, op 0b01, funct3 0b000}
+Instruction C.ADDI {type CI, opfunct3 0b01000, op 0b01, funct3 0b000}
+Instruction C.ADDIW {type CI, opfunct3 0b01001, op 0b01, funct3 0b001}
+Instruction C.LI {type CI, opfunct3 0b01010, op 0b01, funct3 0b010}
+Instruction C.ADDI16SP {type CI, opfunct3 0b01011, rd 2, op 0b01, funct3 0b011}
+Instruction C.LUI {type CI, opfunct3 0b01011, op 0b01, funct3 0b011}
+Instruction C.J {type CJ, opfunct3 0b01101, op 0b01, funct3 0b101}
+Instruction C.BEQZ {type CB, opfunct3 0b01110, op 0b01, funct3 0b110}
+Instruction C.BNEZ {type CB, opfunct3 0b01111, op 0b01, funct3 0b111}
+Instruction C.SLLI {type CI, opfunct3 0b10000, op 0b10, funct3 0b000}
+Instruction C.FLDSP {type CISD, opfunct3 0b10001, op 0b10, funct3 0b001}
+Instruction C.LWSP {type CIS, opfunct3 0b10010, op 0b10, funct3 0b010}
+Instruction C.LDSP {type CISD, opfunct3 0b10011, op 0b10, funct3 0b011}
+Instruction C.JR {type CR, opfunct3 0b10100, funct4 0b1000, rs2 0, op 0b10}
+Instruction C.MV {type CR, opfunct3 0b10100, funct4 0b1000, op 0b10}
+
+Instruction C.EBREAK {type CR, opfunct3 0b10100, funct4 0b1001, rs2 0, rd_rs1 0, op 0b10}
+
+Instruction C.JALR {type CR, opfunct3 0b10100, funct4 0b1001, rs2 0, op 0b10}
+Instruction C.ADD {type CR, opfunct3 0b10100, funct4 0b1001, op 0b10}
+Instruction C.FSDSP {type CSSD, opfunct3 0b10101, op 0b10, funct3 0b101}
+Instruction C.SWSP {type CSS, opfunct3 0b10110, op 0b10, funct3 0b110}
+Instruction C.SDSP {type CSSD, opfunct3 0b10111, op 0b10, funct3 0b111}
+
+Instruction C.SUB {type CRI, opfunct3 0b01100, op 0b01, funct2 0b00, funct6 0b100011 }
+Instruction C.XOR {type CRI, opfunct3 0b01100, op 0b01, funct2 0b01, funct6 0b100011 }
+Instruction C.OR {type CRI, opfunct3 0b01100, op 0b01, funct2 0b10, funct6 0b100011 }
+Instruction C.AND {type CRI, opfunct3 0b01100, op 0b01, funct2 0b11, funct6 0b100011 }
+Instruction C.SUBW {type CRI, opfunct3 0b01100, op 0b01, funct2 0b00, funct6 0b100111 }
+Instruction C.ADDW {type CRI, opfunct3 0b01100, op 0b01, funct2 0b01, funct6 0b100111 }

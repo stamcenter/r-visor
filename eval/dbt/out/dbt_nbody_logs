@@ -1,0 +1,12 @@
+Exited from binary prematurely due to issue locating block 1754c
+Next Block Addr: 1754c
+Start Location in Cache: 0
+Terminal Inst: 0
+Type: Indirect Branch
+Number of Basic Blocks: 0
+Number of Instructions Replaced: 28d
+Number of Instructions Not Replaced: 1aa
+Code Cached: 18c6
+Original Size: 1de0
+Percentage reduction: 17.0764
+EXIT PROGRAM
