@@ -1,0 +1,34 @@
+InstType R4 { opcode [0:6], rd [7:11], funct3 [12:14], rs1 [15:19],
+    rs2 [20:24], funct2 [25:26], rs3 [27:31]
+}
+
+Instruction FLW {type I, opcode 0b0000111, funct3 0b010}
+Instruction FSW {type S, opcode 0b0100111, funct3 0b010}
+Instruction FMADD.S {type R4, opcode 0b1000011, funct2 0b00}
+Instruction FMSUB.S {type R4, opcode 0b1000111, funct2 0b00}
+Instruction FNMSUB.S {type R4, opcode 0b1001011, funct2 0b00}
+Instruction FNMADD.S {type R4, opcode 0b1001111, funct2 0b00}
+Instruction FADD.S {type R, opcode 0b1010011, funct7 0b0000000}
+Instruction FSUB.S {type R, opcode 0b1010011, funct7 0b0000100}
+Instruction FMUL.S {type R, opcode 0b1010011, funct7 0b0001000}
+Instruction FDIV.S {type R, opcode 0b1010011, funct7 0b0001100}
+Instruction FSQRT.S {type R, opcode 0b1010011, funct7 0b0101100, rs2 0b00000}
+Instruction FSGNJ.S {type R, opcode 0b1010011, funct7 0b0010000, funct3 0b000}
+Instruction FSGNJN.S {type R, opcode 0b1010011, funct7 0b0010000, funct3 0b001}
+Instruction FSGNJX.S {type R, opcode 0b1010011, funct7 0b0010000, funct3 0b010}
+Instruction FMIN.S {type R, opcode 0b1010011, funct7 0b0010100, funct3 0b000}
+Instruction FMAX.S {type R, opcode 0b1010011, funct7 0b0010100, funct3 0b001}
+Instruction FCVT.W.S {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00000}
+Instruction FCVT.WU.S {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00001}
+Instruction FMV.X.S {type R, opcode 0b1010011, funct7 0b1110000, rs2 0b00000, funct3 0b000}
+Instruction FEQ.S {type R, opcode 0b1010011, funct7 0b1010000, funct3 0b010}
+Instruction FLT.S {type R, opcode 0b1010011, funct7 0b1010000, funct3 0b001}
+Instruction FLE.S {type R, opcode 0b1010011, funct7 0b1010000, funct3 0b000}
+Instruction FCLASS.S {type R, opcode 0b1010011, funct7 0b1110000, funct3 0b001, rs2 0b00000}
+Instruction FCVT.S.W {type R, opcode 0b1010011, funct7 0b1101000, rs2 0b00000}
+Instruction FCVT.S.WU {type R, opcode 0b1010011, funct7 0b1101000, rs2 0b00001}
+Instruction FMV.W.X {type R, opcode 0b1010011, funct7 0b1111000, funct3 0b000, rs2 0b00000}
+Instruction FCVT.L.S {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00010}
+Instruction FCVT.LU.S {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00011}
+Instruction FCVT.S.L {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00010}
+Instruction FCVT.S.LU {type R, opcode 0b1010011, funct7 0b1100000, rs2 0b00010}

@@ -1,0 +1,95 @@
+InstType CR { op [0:1], rs2 [2:6], rd_rs1 [7:11], funct4 [12:15] }
+
+InstType CRI { op [0:1], rs2p [2:4], funct2 [5:6], rd_rs1p [7:9],
+    funct6 [10:15]
+}
+
+InstType CI { op [0:1], imm(0:4) [2:6], rd_rs1 [7:11],
+    imm(5) [12:12], funct3 [13:15]
+}
+
+InstType CIS { op [0:1], imm(6:7) [2:3], imm(2:4) [4:6],
+    rd_rs1 [7:11], imm(5) [12:12], funct3 [13:15]
+}
+
+InstType CISD { op [0:1], imm(6:8) [2:4], imm(3:4) [5:6],
+    rd_rs1 [7:11], imm(5) [12:12], funct3 [13:15]
+}
+
+InstType CI16 { op [0:1], imm(5) [2:2], imm(7:8) [3:4],
+    imm(6) [5:5], imm(4) [6:6], rd_rs1 [7:11], imm(9) [12:12],
+    funct3 [13:15]
+}
+
+InstType CSS { op [0:1], rs2 [2:6], imm(6:7) [7:8],
+    imm(2:5) [9:12], funct3 [13:15]
+}
+
+InstType CSSD { op [0:1], rs2 [2:6], imm(6:8) [7:9],
+    imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CIW { op [0:1], rdp [2:4], imm(3) [5:5], imm(2) [6:6],
+    imm(6:9) [7:10], imm(4:5) [11:12], funct3 [13:15]
+}
+
+InstType CL { op [0:1], rdp [2:4], imm(2) [5:5], imm(6) [6:6],
+    rs1p [7:9], imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CLD { op [0:1], rdp [2:4], imm(6:7) [5:6], rs1p [7:9],
+    imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CS { op [0:1], rs2p [2:4], imm(2) [5:5], imm(6) [6:6],
+    rs1p [7:9], imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CSD { op [0:1], rs2p [2:4], imm(6:7) [5:6], rs1p [7:9],
+    imm(3:5) [10:12], funct3 [13:15]
+}
+
+InstType CB { op [0:1], imm(5) [2:2], imm(1:2) [3:4],
+    imm(6:7) [5:6], rs1 [7:9], imm(3:4) [10:11], imm(8) [12:12],
+    funct3 [13:15]
+}
+
+InstType CJ { op [0:1], imm(5) [2:2], imm(1:3) [3:5], imm(7) [6:6],
+    imm(6) [7:7], imm(10) [8:8], imm(8:9) [9:10], imm(4) [11:11],
+    imm(11) [12:12], funct3 [13:15]
+}
+
+Instruction C.ADDI4SPN {type CIW, opfunct3 0b00000, op 0b00, funct3 0b000}
+Instruction C.FLD {type CLD, opfunct3 0b00001, op 0b00, funct3 0b001}
+Instruction C.LW {type CL, opfunct3 0b00010, op 0b00, funct3 0b010}
+Instruction C.LD {type CL, opfunct3 0b00011, op 0b00, funct3 0b011}
+Instruction C.FSD {type CSD, opfunct3 0b00101, op 0b00, funct3 0b101}
+Instruction C.SW {type CS, opfunct3 0b00110, op 0b00, funct3 0b110}
+Instruction C.SD {type CSD, opfunct3 0b00111, op 0b00, funct3 0b111}
+Instruction C.NOP {type CI, opfunct3 0b01000, imm 0, rd_rs1 0, op 0b01, funct3 0b000}
+Instruction C.ADDI {type CI, opfunct3 0b01000, op 0b01, funct3 0b000}
+Instruction C.ADDIW {type CI, opfunct3 0b01001, op 0b01, funct3 0b001}
+Instruction C.LI {type CI, opfunct3 0b01010, op 0b01, funct3 0b010}
+Instruction C.ADDI16SP {type CI, opfunct3 0b01011, rd 2, op 0b01, funct3 0b011}
+Instruction C.LUI {type CI, opfunct3 0b01011, op 0b01, funct3 0b011}
+Instruction C.J {type CJ, opfunct3 0b01101, op 0b01, funct3 0b101}
+Instruction C.BEQZ {type CB, opfunct3 0b01110, op 0b01, funct3 0b110}
+Instruction C.BNEZ {type CB, opfunct3 0b01111, op 0b01, funct3 0b111}
+Instruction C.SLLI {type CI, opfunct3 0b10000, op 0b10, funct3 0b000}
+Instruction C.FLDSP {type CISD, opfunct3 0b10001, op 0b10, funct3 0b001}
+Instruction C.LWSP {type CIS, opfunct3 0b10010, op 0b10, funct3 0b010}
+Instruction C.LDSP {type CISD, opfunct3 0b10011, op 0b10, funct3 0b011}
+Instruction C.JR {type CR, opfunct3 0b10100, funct4 0b1000, rs2 0, op 0b10}
+Instruction C.MV {type CR, opfunct3 0b10100, funct4 0b1000, op 0b10}
+Instruction C.EBREAK {type CR, opfunct3 0b10100, funct4 0b1001, rs2 0, rs1 0, op 0b10}
+Instruction C.JALR {type CR, opfunct3 0b10100, funct4 0b1001, rs2 0, op 0b10}
+Instruction C.ADD {type CR, opfunct3 0b10100, funct4 0b1001, op 0b10}
+Instruction C.FSDSP {type CSSD, opfunct3 0b10101, op 0b10, funct3 0b101}
+Instruction C.SWSP {type CSS, opfunct3 0b10110, op 0b10, funct3 0b110}
+Instruction C.SDSP {type CSSD, opfunct3 0b10111, op 0b10, funct3 0b111}
+Instruction C.SUB {type CRI, opfunct3 0b01100, op 0b01, funct2 0b00, funct6 0b100011 }
+Instruction C.XOR {type CRI, opfunct3 0b01100, op 0b01, funct2 0b01, funct6 0b100011 }
+Instruction C.OR {type CRI, opfunct3 0b01100, op 0b01, funct2 0b10, funct6 0b100011 }
+Instruction C.AND {type CRI, opfunct3 0b01100, op 0b01, funct2 0b11, funct6 0b100011 }
+Instruction C.SUBW {type CRI, opfunct3 0b01100, op 0b01, funct2 0b00, funct6 0b100111 }
+Instruction C.ADDW {type CRI, opfunct3 0b01100, op 0b01, funct2 0b01, funct6 0b100111 }
